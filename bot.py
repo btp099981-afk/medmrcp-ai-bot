@@ -1,6 +1,9 @@
 import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes, from handlers.chat import handle_message
+
+from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
+
+from handlers.chat import handle_ContextTypesTypesTypes
 
 TOKEN = os.getenv("BOT_TOKEN")
 
