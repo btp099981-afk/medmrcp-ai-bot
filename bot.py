@@ -1,4 +1,4 @@
-import os
+    import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 
@@ -8,26 +8,16 @@ TOKEN = os.getenv("BOT_TOKEN")
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     keyboard = [
-        [
-            InlineKeyboardButton("🗣 History Taking", callback_data="history"),
-        ],
-        [
-            InlineKeyboardButton("🏥 Clinical Cases", callback_data="cases"),
-        ],
-        [
-            InlineKeyboardButton("📝 MCQs Practice", callback_data="mcq"),
-        ],
-        [
-            InlineKeyboardButton("📊 My Progress", callback_data="progress"),
-        ],
+        [InlineKeyboardButton("❤️ Cardiovascular", callback_data="cardio")],
+        [InlineKeyboardButton("🫁 Respiratory", callback_data="respiratory")],
+        [InlineKeyboardButton("🧠 Neurology", callback_data="neurology")],
+        [InlineKeyboardButton("🩻 Gastrointestinal", callback_data="gi")],
+        [InlineKeyboardButton("🫘 Renal", callback_data="renal")],
     ]
 
-    reply_markup = InlineKeyboardMarkup(keyboard)
-
     await update.message.reply_text(
-        "🩺 Welcome to MedMRCP AI\n\n"
-        "Choose your training mode:",
-        reply_markup=reply_markup
+        "🩺 MedMRCP AI\n\nChoose Internal Medicine system:",
+        reply_markup=InlineKeyboardMarkup(keyboard)
     )
 
 
@@ -36,19 +26,31 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    if query.data == "history":
-        text = "🗣 History Taking Training\n\nComing soon..."
+    if query.data == "cardio":
 
-    elif query.data == "cases":
-        text = "🏥 Clinical Cases\n\nComing soon..."
+        keyboard = [
+            [InlineKeyboardButton("🫀 Chest Pain", callback_data="chest_pain")]
+        ]
 
-    elif query.data == "mcq":
-        text = "📝 MCQs Practice\n\nComing soon..."
+        await query.edit_message_text(
+            "❤️ Cardiovascular Cases:",
+            reply_markup=InlineKeyboardMarkup(keyboard)
+        )
 
-    elif query.data == "progress":
-        text = "📊 Your Progress\n\nComing soon..."
 
-    await query.edit_message_text(text)
+    elif query.data == "chest_pain":
+
+        await query.edit_message_text(
+            "🧑 Patient:\n\n"
+            "Hello doctor, I have chest pain.\n\n"
+            "Start taking the history."
+        )
+
+
+    else:
+        await query.edit_message_text(
+            "🚧 This module is under development."
+        )
 
 
 def main():
