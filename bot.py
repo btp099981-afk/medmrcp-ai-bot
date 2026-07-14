@@ -59,12 +59,15 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def main():
 
-    app = Application.builder().token(TOKEN).build()
+    app = 
+    Application.builder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
+    
     app.add_handler(CallbackQueryHandler(button_handler))
-app.add_handler(MessageHandler(filters.TEXT, handle_message))
-
+    
+    app.add_handler(MessageHandler(filters.TEXT, handle_message))
+    
     app.run_polling()
 
 
